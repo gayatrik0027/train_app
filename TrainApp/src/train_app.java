@@ -1,5 +1,5 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class train_app {
 
@@ -28,27 +28,19 @@ public class train_app {
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 56));
         bogies.add(new Bogie("First Class", 40));
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
 
-        System.out.println("Original Bogie List:");
+        System.out.println("Bogie List:");
         for (Bogie b : bogies) {
             System.out.println(b);
         }
 
-        // Group bogies by name/type
-        Map<String, List<Bogie>> groupedBogies =
-                bogies.stream()
-                        .collect(Collectors.groupingBy(b -> b.name));
+        // Stream aggregation to calculate total seating capacity
+        int totalSeats = bogies
+                .stream()
+                .map(b -> b.capacity)     // extract capacity
+                .reduce(0, Integer::sum); // aggregate values
 
-        System.out.println("\nGrouped Bogies by Type:");
-
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("Type: " + entry.getKey());
-            for (Bogie b : entry.getValue()) {
-                System.out.println("  " + b);
-            }
-        }
+        System.out.println("\nTotal Seating Capacity of Train: " + totalSeats);
 
         System.out.println("\nProgram continues...");
     }
