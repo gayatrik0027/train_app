@@ -1,7 +1,21 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class train_app {
+
+    // Method to perform Linear Search
+    public static int linearSearch(String[] bogieIds, String key) {
+
+        // Traverse array sequentially
+        for (int i = 0; i < bogieIds.length; i++) {
+
+            // Compare using equalsIgnoreCase (optional improvement)
+            if (bogieIds[i].equalsIgnoreCase(key)) {
+                return i; // return index when found
+            }
+        }
+
+        return -1; // not found
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -9,21 +23,29 @@ public class train_app {
         // Input number of bogies
         System.out.print("Enter number of bogies: ");
         int n = sc.nextInt();
-        sc.nextLine(); // consume newline
+        sc.nextLine();
 
-        String[] bogieNames = new String[n];
+        String[] bogieIds = new String[n];
 
-        // Input bogie names
-        System.out.println("Enter bogie type names:");
+        // Input bogie IDs
+        System.out.println("Enter bogie IDs:");
         for (int i = 0; i < n; i++) {
-            bogieNames[i] = sc.nextLine();
+            bogieIds[i] = sc.nextLine();
         }
 
-        // Sorting using built-in method
-        Arrays.sort(bogieNames);
+        // Input search key
+        System.out.print("Enter bogie ID to search: ");
+        String searchKey = sc.nextLine();
 
-        // Display sorted result
-        System.out.println("Sorted Bogie Names: " + Arrays.toString(bogieNames));
+        // Perform search
+        int result = linearSearch(bogieIds, searchKey);
+
+        // Display result
+        if (result != -1) {
+            System.out.println("Bogie ID found at position: " + result);
+        } else {
+            System.out.println("Bogie ID not found.");
+        }
 
         sc.close();
     }
